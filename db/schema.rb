@@ -10,11 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_13_222929) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_17_204149) do
+  create_table "animals", force: :cascade do |t|
+    t.string "name"
+    t.integer "age"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "owners_id"
+    t.index ["owners_id"], name: "index_animals_on_owners_id"
+  end
+
   create_table "cars", force: :cascade do |t|
     t.string "make"
     t.string "model"
     t.integer "year"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "owners", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.integer "age"
+    t.string "street_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -26,4 +44,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_13_222929) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "animals", "owners", column: "owners_id"
 end
